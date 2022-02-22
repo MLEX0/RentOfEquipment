@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="20e20a90c39741aa9463f6f5e906b3b2" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="RentOfEquipmentModel.Category" Width="1.5" PointX="3.75" PointY="9.625" />
+        <EntityTypeShape EntityType="RentOfEquipmentModel.Client" Width="1.5" PointX="6" PointY="4" />
+        <EntityTypeShape EntityType="RentOfEquipmentModel.ClientProduct" Width="1.5" PointX="8.25" PointY="4.25" />
+        <EntityTypeShape EntityType="RentOfEquipmentModel.Employee" Width="1.5" PointX="3" PointY="3.875" />
+        <EntityTypeShape EntityType="RentOfEquipmentModel.Gender" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="RentOfEquipmentModel.Passport" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RentOfEquipmentModel.Product" Width="1.5" PointX="6" PointY="9.125" />
+        <EntityTypeShape EntityType="RentOfEquipmentModel.Role" Width="1.5" PointX="0.75" PointY="1.875" />
+        <EntityTypeShape EntityType="RentOfEquipmentModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="8.375" />
+        <AssociationConnector Association="RentOfEquipmentModel.FK_Product_Category" />
+        <AssociationConnector Association="RentOfEquipmentModel.FK_Client_Gender" />
+        <AssociationConnector Association="RentOfEquipmentModel.FK_Client_Passport" />
+        <AssociationConnector Association="RentOfEquipmentModel.FK_ClientProduct_Client" />
+        <AssociationConnector Association="RentOfEquipmentModel.FK_ClientProduct_Employee" />
+        <AssociationConnector Association="RentOfEquipmentModel.FK_ClientProduct_Product" />
+        <AssociationConnector Association="RentOfEquipmentModel.FK_Employee_Gender" />
+        <AssociationConnector Association="RentOfEquipmentModel.FK_Employee_Role" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

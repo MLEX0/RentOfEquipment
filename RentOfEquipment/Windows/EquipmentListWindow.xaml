@@ -1,0 +1,27 @@
+﻿<Window x:Class="RentOfEquipment.Windows.EquipmentListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RentOfEquipment.Windows"
+        mc:Ignorable="d"
+        Title="Список оборудования" 
+        Height="450" 
+        Width="800"
+        WindowStartupLocation="CenterScreen">
+    
+    <Grid>
+        <TextBlock x:Name="txtEquipmentList"
+                   Text="Список оборудования" 
+                   Grid.Row="0" 
+                   Grid.Column="0"
+                   Grid.ColumnSpan="4"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="25"
+                   FontFamily="Franklin Gothic Demi"
+                   Margin="0 0 0 0"
+                   
+                   />
+    </Grid>
+</Window>

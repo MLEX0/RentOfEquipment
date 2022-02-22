@@ -1,0 +1,152 @@
+﻿<Window x:Class="RentOfEquipment.Windows.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RentOfEquipment.Windows"
+        mc:Ignorable="d"
+        Title="Окно авторизации" 
+        Height="450"
+        Width="300"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        >
+
+    <Grid>
+        
+        <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+
+            <TextBlock x:Name="Authorization"
+                   Text="Авторизация" 
+                   Grid.Row="0" 
+                   Grid.Column="0"
+                   Grid.ColumnSpan="4"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="25"
+                   FontFamily="Franklin Gothic Demi"
+                   Margin="0 0 0 0"
+                   
+                   />
+            <TextBlock x:Name="LoginAuthorization"
+                   Text="Логин" 
+                   Grid.Row="2" 
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Right"
+                   Margin="0 0 80 0"
+                   FontSize="17"/>
+
+            <TextBox x:Name="txtLogin" 
+                 Grid.Row="2" 
+                 Grid.Column="1" 
+                 Grid.ColumnSpan="3"
+                 Width="190"
+                 Height="30"
+                 FontSize="16"
+                 VerticalContentAlignment="Center"
+                 FontFamily="Corbel"
+                 Margin="10 0 0 0"
+                 GotFocus="txtLogin_GotFocus"
+                 LostFocus="txtLogin_LostFocus"
+                 Text="Введите логин"
+                 />
+
+            <TextBlock x:Name="PasswordAuthorization"
+                   Text="Пароль" 
+                   Grid.Row="3" 
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Right"
+                   Margin="0 0 70 0"
+                   FontSize="17"/>
+
+            <PasswordBox x:Name="pswPassword" 
+                     Grid.Row="3" 
+                 Grid.Column="1"
+                 Grid.ColumnSpan="3"
+                 Width="190"
+                 Height="30"
+                 FontSize="16"
+                 VerticalContentAlignment="Center"
+                 FontFamily="Tempus Sans ITC"
+                 Margin="10 0 0 0"
+                 />
+
+            <CheckBox x:Name="cbxRemind"
+                  Grid.Row="4"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="1"
+                  VerticalContentAlignment="Center"
+                  HorizontalAlignment="Left"
+                  Margin="0 0 0 0"   
+            />
+
+            <TextBlock x:Name="SaveMeAutharization"
+                   Text="Запомнить меня"
+                   Grid.Row="4"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="3"
+                   Margin="0 0 60 0"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Right" 
+                   Width="120"
+            />
+
+
+            <Button x:Name="btnLogin"
+                Grid.Column="1"
+                Grid.Row="5"
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
+                Width="120"
+                Height="30"
+                Content="Войти"
+                Margin="0 10 0 0"
+                FontSize="15" Click="btnLogin_Click" 
+                 
+                />
+
+
+            <Button x:Name="btnClose"
+                Grid.Column="1"
+                Grid.Row="6"
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="2"
+                Width="120"
+                Height="30"
+                Margin="0 10 0 10"
+                Content="Отмена"
+                FontSize="15" 
+                Click="btnClose_Click"
+                />
+
+            <Border x:Name="brdRegistration"
+                Background="#CCFFFFFF"
+                Grid.ColumnSpan="4"
+                Grid.RowSpan="10"
+                Margin="15"
+                CornerRadius="15"
+                Visibility="Hidden"/>
+        </Grid>
+</Window>
