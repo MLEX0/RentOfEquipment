@@ -21,16 +21,27 @@ namespace RentOfEquipment
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private EF.Employee AuthUser { get; }
+        public MainWindow(EF.Employee authUser)
         {
             InitializeComponent();
+            AuthUser = authUser;
+
         }
 
         private void btnMenuEmployee_Click(object sender, RoutedEventArgs e)
         {
-            EmployeeListWindow employeeListWindow = new EmployeeListWindow();
+            EmployeeListWindow employeeListWindow = new EmployeeListWindow(AuthUser);
             this.Hide();
             employeeListWindow.Show();
+            this.Close();
+        }
+
+        private void btnMenuClient_Click(object sender, RoutedEventArgs e)
+        {
+            ClientListWindow clientListWindow = new ClientListWindow(AuthUser);
+            this.Hide();
+            clientListWindow.Show();
             this.Close();
         }
     }

@@ -28,7 +28,15 @@
                     Margin="0 50 0 0"
                     Width="100"
                     Height="35"
-                    Content="Окно сотрудника" Click="btnMenuEmployee_Click"/>
+                    Content="Окно сотрудника" 
+                    Click="btnMenuEmployee_Click"/>
+
+            <Button x:Name="btnMenuClient"
+                    Margin="0 20 0 0"
+                    Width="100"
+                    Height="35"
+                    Content="Окно клиента" 
+                    Click="btnMenuClient_Click"/>
 
         </StackPanel>
     </Grid>

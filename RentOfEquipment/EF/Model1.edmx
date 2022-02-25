@@ -26,6 +26,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Phone" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="IdPasssport" Type="int" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ClientProduct">
           <Key>
@@ -52,6 +53,7 @@
           <Property Name="Phone" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="IdRole" Type="int" Nullable="false" />
           <Property Name="IdGender" Type="int" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
@@ -79,6 +81,7 @@
           <Property Name="IdCategory" Type="int" Nullable="false" />
           <Property Name="Warranty" Type="date" Nullable="false" />
           <Property Name="IsActual" Type="bit" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -343,7 +346,7 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
           <Property Type="Binary" Name="definition" Nullable="true" />
@@ -377,6 +380,7 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="IdPasssport" Type="Int32" Nullable="false" />
+          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Gender" Relationship="RentOfEquipmentModel.FK_Client_Gender" FromRole="Client" ToRole="Gender" />
           <NavigationProperty Name="Passport" Relationship="RentOfEquipmentModel.FK_Client_Passport" FromRole="Client" ToRole="Passport" />
           <NavigationProperty Name="ClientProduct" Relationship="RentOfEquipmentModel.FK_ClientProduct_Client" FromRole="Client" ToRole="ClientProduct" />
@@ -409,6 +413,7 @@
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="IdRole" Type="Int32" Nullable="false" />
           <Property Name="IdGender" Type="Int32" Nullable="false" />
+          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ClientProduct" Relationship="RentOfEquipmentModel.FK_ClientProduct_Employee" FromRole="Employee" ToRole="ClientProduct" />
           <NavigationProperty Name="Gender" Relationship="RentOfEquipmentModel.FK_Employee_Gender" FromRole="Employee" ToRole="Gender" />
           <NavigationProperty Name="Role" Relationship="RentOfEquipmentModel.FK_Employee_Role" FromRole="Employee" ToRole="Role" />
@@ -442,6 +447,7 @@
           <Property Name="IdCategory" Type="Int32" Nullable="false" />
           <Property Name="Warranty" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IsActual" Type="Boolean" Nullable="false" />
+          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="RentOfEquipmentModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="ClientProduct" Relationship="RentOfEquipmentModel.FK_ClientProduct_Product" FromRole="Product" ToRole="ClientProduct" />
         </EntityType>
@@ -559,7 +565,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -601,6 +607,7 @@
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="RentOfEquipmentModel.Client">
               <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="IdPasssport" ColumnName="IdPasssport" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -628,6 +635,7 @@
           <EntitySetMapping Name="Employee">
             <EntityTypeMapping TypeName="RentOfEquipmentModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="IdGender" ColumnName="IdGender" />
                 <ScalarProperty Name="IdRole" ColumnName="IdRole" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
@@ -661,6 +669,7 @@
           <EntitySetMapping Name="Product">
             <EntityTypeMapping TypeName="RentOfEquipmentModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="IsActual" ColumnName="IsActual" />
                 <ScalarProperty Name="Warranty" ColumnName="Warranty" />
                 <ScalarProperty Name="IdCategory" ColumnName="IdCategory" />
@@ -690,7 +699,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

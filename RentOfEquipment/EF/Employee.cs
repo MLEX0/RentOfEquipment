@@ -30,6 +30,7 @@ namespace RentOfEquipment.EF
         public string Phone { get; set; }
         public int IdRole { get; set; }
         public int IdGender { get; set; }
+        public bool isDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClientProduct> ClientProduct { get; set; }

@@ -18,8 +18,11 @@ namespace RentOfEquipment.Windows
     /// <summary>
     /// Логика взаимодействия для EmployeeListWindow.xaml
     /// </summary>
+    /// 
     public partial class EmployeeListWindow : Window
     {
+        private EF.Employee AuthUser { get; }
+
         List<string> listsort = new List<string>() 
         {
             "По умолучанию",
@@ -29,8 +32,9 @@ namespace RentOfEquipment.Windows
             "По Должности"
         }; 
 
-        public EmployeeListWindow()
+        public EmployeeListWindow(EF.Employee authUser)
         {
+            this.AuthUser = authUser;
             InitializeComponent();
             cmbSort.ItemsSource = listsort;
             cmbSort.SelectedIndex = 0;
@@ -39,7 +43,7 @@ namespace RentOfEquipment.Windows
 
         private void Filter() 
         {
-            List<EF.Employee> listEmployee = AppData.Context.Employee.ToList();
+            List<EF.Employee> listEmployee = AppData.Context.Employee.Where(i => i.isDeleted == false).ToList();
 
 
             listEmployee = listEmployee
@@ -117,8 +121,14 @@ namespace RentOfEquipment.Windows
                             return;
                         }
 
+                        if (this.AuthUser == lvEquipment.SelectedItem as EF.Employee)
+                        {
+                            MessageBox.Show("Нельзя удалить текущего пользователя!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
                         var selectedEmployee = lvEquipment.SelectedItem as EF.Employee;
-                        AppData.Context.Employee.Remove(selectedEmployee);
+                        selectedEmployee.isDeleted = true;
                         AppData.Context.SaveChanges();
                         Filter();
                         MessageBox.Show("Пользователь успешно удалён!", "Информирование", MessageBoxButton.OK, MessageBoxImage.Information);

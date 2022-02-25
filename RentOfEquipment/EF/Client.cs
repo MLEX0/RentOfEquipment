@@ -29,6 +29,7 @@ namespace RentOfEquipment.EF
         public string Email { get; set; }
         public string Phone { get; set; }
         public int IdPasssport { get; set; }
+        public bool isDeleted { get; set; }
     
         public virtual Gender Gender { get; set; }
         public virtual Passport Passport { get; set; }
