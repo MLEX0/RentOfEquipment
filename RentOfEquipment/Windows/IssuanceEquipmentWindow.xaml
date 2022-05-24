@@ -5,24 +5,256 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RentOfEquipment.Windows"
         mc:Ignorable="d"
-        Title="Выдать" 
+        Title="Выдача оборудования" 
         Height="450" 
-        Width="800"
+        Width="700"
+        MinHeight="450" 
+        MinWidth="700"
         WindowStartupLocation="CenterScreen">
-    
+
     <Grid>
-        
-        <TextBlock x:Name="txtIssuanceEquipment"
-                   Text="Выдача оборудования" 
-                   Grid.Row="0" 
-                   Grid.Column="0"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="txtHeader"
+                   Text=""
                    Grid.ColumnSpan="4"
-                   VerticalAlignment="Center"
+                   FontSize="24"
                    HorizontalAlignment="Center"
-                   FontSize="25"
-                   FontFamily="Franklin Gothic Demi"
-                   Margin="0 0 0 0"
-                   
+                   VerticalAlignment="Center"
+                   FontWeight="Bold"/>
+
+        <TextBlock 
+                   Text="Оборудование на выдачу:"
+                   Grid.Column="1"
+                   Grid.Row="1"
+                   FontSize="16"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontWeight="Bold"/>
+
+        <ListView x:Name="lvAddEquipment"
+                  Grid.Row="2"
+                  Grid.Column="1"
+                  Grid.RowSpan="6"
+                  BorderThickness="2"
+                  BorderBrush="Black" 
+                  d:ItemsSource="{d:SampleData ItemCount=5}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+
+                    <Grid Height="100">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="0"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Background="AliceBlue"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                CornerRadius="15"/>
+
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="45"/>
+                                <RowDefinition Height="45"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" 
+                                        Grid.RowSpan="2">
+                                <TextBlock                 
+                                            Grid.Row="0" 
+                                           Text="{Binding TextName}"
+                                           TextWrapping="Wrap" 
+                                           FontSize="15" 
+                                           FontWeight="Bold"
+                                           />
+
+
+                                <TextBlock  
+                                            Grid.Row="0" 
+                                            Text="{Binding TextQty}"
+                                            FontSize="18"
+                                            TextWrapping="Wrap"
+                                            />
+
+                            </StackPanel>
+                        </Grid>
+
+                        <Border Grid.Column="0" 
+                                Width="90" 
+                                Margin="3" 
+                                BorderBrush="Gray" 
+                                BorderThickness="1" 
+                                CornerRadius="4"
+                                >
+
+                            <Image x:Name="productImage">
+                                <Image.Source>
+                                    <Binding Path="ProductImage">
+                                        <Binding.TargetNullValue>
+                                            <ImageSource>C:\Users\MPC\source\repos\NarodnyStore_0.2\NarodnyStore_0.2\Images\nullImage.jpg</ImageSource>
+                                        </Binding.TargetNullValue>
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
+                        </Border>
+                    </Grid>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+
+        <Grid Grid.Row="8"
+              Grid.Column="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="btnDeleteFromList"
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                Content="Удалить"
+                Width="140" Click="btnDeleteFromList_Click" 
+                />
+
+            <Button x:Name="btnAddInList"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                Content="Добавить"
+                Width="150" Click="btnAddInList_Click" 
+                />
+
+        </Grid>
+
+        <TextBlock 
+                   Text="Клиент:"
+                   Grid.Column="2"
+                   Grid.ColumnSpan="2"
+                   Grid.Row="1"
+                   FontSize="16"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontWeight="Bold"/>
+
+        <TextBlock x:Name="txtClient"
+                   Text="Выберите клиента"
+                   Grid.Column="2"
+                   Grid.ColumnSpan="2"
+                   Grid.Row="2"
+                   FontSize="14"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
                    />
+
+
+        <Button x:Name="btnChoise"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                Grid.Row="3"
+                HorizontalAlignment="Center"
+                Content="Выбрать"
+                Width="120" 
+                Click="btnChoise_Click"
+                
+                />
+
+
+        <TextBlock 
+                   Text="Сотрудник:"
+                   Grid.Column="2"
+                   Grid.ColumnSpan="2"
+                   Grid.Row="4"
+                   FontSize="16"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontWeight="Bold"/>
+
+        <TextBlock x:Name="txtEmployee"
+                   Text=""
+                   Grid.Column="2"
+                   Grid.ColumnSpan="2"
+                   Grid.Row="5"
+                   FontSize="14"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   />
+
+        <WrapPanel Grid.Column="2"
+                   Grid.ColumnSpan="2"
+                   Grid.Row="6"
+                   VerticalAlignment="Center">
+            
+            <TextBlock 
+                   Text="Дата выдачи:"
+                   FontSize="16"
+                   FontWeight="Bold"
+                   Margin="0 0 20 0"/>
+
+            <DatePicker 
+                x:Name="dpcStartDate"
+                Width="150"
+                />
+
+        </WrapPanel>
+
+
+        <WrapPanel Grid.Column="2"
+                   Grid.ColumnSpan="2"
+                   Grid.Row="7"
+                   VerticalAlignment="Center">
+
+            <TextBlock 
+                   Text="Дата cдачи:"
+                   FontSize="16"
+                   FontWeight="Bold"
+                   Margin="0 0 32 0"/>
+
+            <DatePicker 
+                x:Name="dpcEndDate"
+                Width="150"
+                />
+
+        </WrapPanel>
+
+
+        <Button x:Name="btnSave"
+                Grid.Column="3"
+                Grid.Row="9"
+                HorizontalAlignment="Center"
+                Content="Выдать"
+                Width="120" Click="btnSave_Click"
+                
+                />
+
+        <Button x:Name="btnClose"
+                Grid.Column="3"
+                Grid.Row="10"
+                HorizontalAlignment="Center"
+                Content="Закрыть"
+                Width="120" Click="btnClose_Click" 
+                />
     </Grid>
 </Window>

@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RentOfEquipment"
         mc:Ignorable="d"
-        Title="Главное окно" 
+        Title="Меню администратора" 
         Height="450" 
         Width="300"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
     
     <Grid>
         <StackPanel>
             <TextBlock x:Name="txtMainMenu"
-                   Text="Меню" 
+                   Text="Меню Администратора" 
                    Grid.Row="0" 
                    Grid.Column="0"
                    Grid.ColumnSpan="4"
@@ -26,17 +27,44 @@
 
             <Button x:Name="btnMenuEmployee"
                     Margin="0 50 0 0"
-                    Width="100"
-                    Height="35"
+                    Width="200"
+                    Height="40"
                     Content="Окно сотрудника" 
                     Click="btnMenuEmployee_Click"/>
 
             <Button x:Name="btnMenuClient"
                     Margin="0 20 0 0"
-                    Width="100"
-                    Height="35"
+                    Width="200"
+                    Height="40"
                     Content="Окно клиента" 
                     Click="btnMenuClient_Click"/>
+
+
+            <Button x:Name="btnEquipment"
+                    Margin="0 20 0 0"
+                    Width="200"
+                    Height="40"
+                    Content="Окно оборудования"
+                    Click="btnEquipment_Click"
+                    />
+
+            <Button x:Name="btnProductEquipment"
+                    Margin="0 20 0 0"
+                    Width="200"
+                    Height="40"
+                    FontSize="10"
+                    Content="Окно выданного оборудования"
+                    Click="btnProductEquipment_Click"
+                    />
+
+            <Button x:Name="btnMenuIssueOfEquipment"
+                    Margin="0 20 0 0"
+                    Width="200"
+                    Height="40"
+                    Content="Окно выдачи" 
+                    Click="btnMenuIssueOfEquipment_Click" 
+                    />
+
 
         </StackPanel>
     </Grid>

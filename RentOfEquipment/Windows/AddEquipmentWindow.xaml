@@ -5,23 +5,214 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RentOfEquipment.Windows"
         mc:Ignorable="d"
-        Title="Добавить оборудование" 
-        Height="450" 
-        Width="800"
+        Title="Редактор оборудования" 
+        Height="550" 
+        Width="850"
+        MinHeight="450" 
+        MinWidth="750"
+        KeyDown="Window_KeyDown"
         WindowStartupLocation="CenterScreen">
-    
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
         <TextBlock x:Name="txtAddEditEquipment"
                    Text="Добавление оборудования" 
-                   Grid.Row="0" 
-                   Grid.Column="0"
-                   Grid.ColumnSpan="4"
+                   Grid.ColumnSpan="3"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="30"
+                   FontFamily="Franklin Gothic Demi"
+                   Margin="0 10 0 0"
+                   />
+
+        <TextBlock 
+                   Text="Наименование"
+                   Grid.Row="1"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontSize="25"
-                   FontFamily="Franklin Gothic Demi"
                    Margin="0 0 0 0"
                    />
-        
+
+
+        <TextBlock 
+                   Text="Описание" 
+                   Grid.Row="2"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="25"
+                   Margin="0 0 0 0"
+                   />
+
+
+        <TextBlock 
+                   Text="Категория" 
+                   Grid.Row="3"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="25"
+                   Margin="0 0 0 0"
+                   />
+
+        <TextBlock 
+                   Text="Количество" 
+                   Grid.Row="4"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="25"
+                   Margin="0 0 0 0"
+                   />
+
+        <TextBlock 
+                   Text="Стоимость" 
+                   Grid.Row="5"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="25"
+                   Margin="0 0 0 0"
+                   />
+
+        <TextBlock 
+                   Text="Гарантия" 
+                   Grid.Row="6"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="25"
+                   Margin="0 0 0 0"
+                   />
+
+
+
+        <!--Поля для заполнения-->
+
+        <TextBox   x:Name="txtName"
+                   Grid.Column="1"
+                   Grid.Row="1"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Width="250"
+                   FontSize="14"
+                   Margin="8"
+                   MaxLength="100"
+                   VerticalContentAlignment="Center"
+                   />
+
+
+        <TextBox   x:Name="txtDescription"
+                   Grid.Column="1"
+                   Grid.Row="2"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Width="250"
+                   FontSize="14"
+                   Margin="8"
+                   MaxLength="100"
+                   VerticalContentAlignment="Center"
+                   />
+
+        <ComboBox  x:Name="cmbCategory"
+                   Grid.Column="1"
+                   Grid.Row="3"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Width="250"
+                   FontSize="14"
+                   Margin="8"
+                   IsEditable="True"
+                   IsTextSearchEnabled="True"
+                   IsTextSearchCaseSensitive="True"
+                   TextSearch.TextPath="CategoryName"
+                   />
+
+
+
+        <TextBox   x:Name="txtQty"
+                   Grid.Column="1"
+                   Grid.Row="4"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Width="250"
+                   FontSize="14"
+                   Margin="8"
+                   MaxLength="100"
+                   VerticalContentAlignment="Center"
+                   />
+
+        <TextBox   x:Name="txtCost"
+                   Grid.Column="1"
+                   Grid.Row="5"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Width="250"
+                   FontSize="14"
+                   Margin="8"
+                   MaxLength="12"
+                   VerticalContentAlignment="Center"
+                   />
+
+        <DatePicker   x:Name="dpcWarranty"
+                   Grid.Column="1"
+                   Grid.Row="6"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Width="250"
+                   FontSize="14"
+                   Margin="8"
+                   />
+
+
+       
+
+        <Button x:Name="btnAddEquipment"
+                   Grid.Row="11"
+                   Grid.ColumnSpan="3"
+                   Height="30"
+                   Width="240"
+                   Content="Добавить оборудование"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="16"
+                   Margin="0 0 0 0" 
+                   Click="btnAddEquipment_Click"
+                />
+
+        <Border Grid.Row="1"
+                Grid.RowSpan="4"
+                BorderThickness="1"
+                BorderBrush="Gray"
+                Width="250"
+                Margin="5"
+                Grid.Column="2">
+            <Image x:Name="imgEquipment"/>
+        </Border>
+        <Button x:Name="btnAddImage" 
+                Grid.Row="5"
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Grid.ColumnSpan="1"
+                Margin="20 0 20 0"
+                Content="Выбрать изображение"
+                FontSize="16"
+                Width="230"
+                Click="btnAddImage_Click"
+                />
+
     </Grid>
+
 </Window>

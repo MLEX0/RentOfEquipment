@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using RentOfEquipment.ClassHelper;
 
 namespace RentOfEquipment.Windows
@@ -20,6 +23,7 @@ namespace RentOfEquipment.Windows
     /// </summary>
     public partial class AddEditEmployeeWindow : Window
     {
+        private string pathImage = null;
         private bool isEdit = false;
         private EF.Employee editEmployee;
         private bool canQuitWithEsc = true;
@@ -63,10 +67,42 @@ namespace RentOfEquipment.Windows
             txtLogin.Text = changeEmployee.Login;
             txtPassword.Text = changeEmployee.Password;
 
+            if (changeEmployee.EmployeePhoto != null)
+            {
+                using (MemoryStream stream = new MemoryStream(changeEmployee.EmployeePhoto))
+                {
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                    bitmapImage.StreamSource = stream;
+                    bitmapImage.EndInit();
+                    imgEmployee.Source = bitmapImage;
+                }
+            }
+            else 
+            {
+                if (changeEmployee.IdGender == 1)
+                {
+                    imgEmployee.Source = new BitmapImage(new Uri("/Res/man.png", UriKind.Relative));
+                }
+                else 
+                {
+                    imgEmployee.Source = new BitmapImage(new Uri("/Res/woman.png", UriKind.Relative));
+                }
+
+            }
         }     
         
         private void btnAddEmployee_Click(object sender, RoutedEventArgs e)
         {
+            bool IsValidEmail(string Email)
+            {
+                string pattern = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
+                Match isMath = Regex.Match(Email, pattern, RegexOptions.IgnoreCase);
+                return isMath.Success;
+            }
+
             if (String.IsNullOrWhiteSpace(txtFName.Text))
             {
                 MessageBox.Show("Поле \"ИМЯ\" не может быть пустым", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -112,6 +148,12 @@ namespace RentOfEquipment.Windows
             if (txtEmail.Text.Length > 100)
             {
                 MessageBox.Show("Поле \"ПОЧТА\" не может содержать более 100 символов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (!IsValidEmail(txtEmail.Text))
+            {
+                MessageBox.Show("Поле \"ПОЧТА\" не соответствует требованиям", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -167,7 +209,7 @@ namespace RentOfEquipment.Windows
             canQuitWithEsc = false;
             if (isEdit)
             {
-                if (AppData.Context.Employee.Where(i => i.Login.Equals(txtLogin.Text) && i.Login != editEmployee.Login).FirstOrDefault() != null )
+                if (AppData.Context.Employee.Where(i => i.Login.Equals(txtLogin.Text) && i.Login != editEmployee.Login).FirstOrDefault() != null)
                 {
                     MessageBox.Show("Пользователь с таким логином уже существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -175,6 +217,12 @@ namespace RentOfEquipment.Windows
 
                 try
                 {
+
+                    // если нет фото передаём null
+                    if (pathImage != null)
+                    {
+                        editEmployee.EmployeePhoto = File.ReadAllBytes(pathImage);
+                    }
 
                    editEmployee.FirstName = txtFName.Text;
                    editEmployee.LastName = txtLName.Text;
@@ -211,6 +259,26 @@ namespace RentOfEquipment.Windows
                 {
                     EF.Employee addEmployee = new EF.Employee();
 
+                    // если нет фото передаём null
+                    if (pathImage != null)
+                    {
+                        addEmployee.EmployeePhoto = File.ReadAllBytes(pathImage);
+                    }
+                    else
+                    {
+                        addEmployee.EmployeePhoto = null;
+                    }
+
+                    // если не выбрали фото, выводим вопрос с подтверждением
+                    if (pathImage == null)
+                    {
+                        var resMess = MessageBox.Show("Фото не выбрано. Сохранить работника без фото?", "Сообщение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (resMess == MessageBoxResult.No)
+                        {
+                            return;
+                        }
+                    }
+
                     addEmployee.FirstName = txtFName.Text;
                     addEmployee.LastName = txtLName.Text;
                     addEmployee.Patronymic = txtMName.Text;
@@ -244,5 +312,20 @@ namespace RentOfEquipment.Windows
             }
         }
 
+        private void btnAddImage_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "Image Files(*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG";
+            if (openFile.ShowDialog() == true)
+            {
+                imgEmployee.Source = new BitmapImage(new Uri(openFile.FileName));
+                pathImage = openFile.FileName;
+            }
+        }
+
+        private void txtPhone_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = "1234567890+".IndexOf(e.Text) < 0;
+        }
     }
 }

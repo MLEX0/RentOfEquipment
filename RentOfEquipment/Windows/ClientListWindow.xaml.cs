@@ -21,6 +21,7 @@ namespace RentOfEquipment.Windows
     public partial class ClientListWindow : Window
     {
         private EF.Employee AuthUser { get; }
+        private bool clientChoise = false;
 
         List<string> listsort = new List<string>()
         {
@@ -34,6 +35,16 @@ namespace RentOfEquipment.Windows
         public ClientListWindow(EF.Employee authUser)
         {
             this.AuthUser = authUser;
+            InitializeComponent();
+            cmbSort.ItemsSource = listsort;
+            cmbSort.SelectedIndex = 0;
+            Filter();
+        }
+
+        public ClientListWindow(EF.Employee authUser, bool ClientChoise)
+        {
+            this.AuthUser = authUser;
+            this.clientChoise = ClientChoise;
             InitializeComponent();
             cmbSort.ItemsSource = listsort;
             cmbSort.SelectedIndex = 0;
@@ -87,7 +98,9 @@ namespace RentOfEquipment.Windows
 
         private void btnAddClient_Click(object sender, RoutedEventArgs e)
         {
-            
+            AddEditClientWindow addEditClientWindow = new AddEditClientWindow();
+            addEditClientWindow.ShowDialog();
+            Filter();
         }
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -101,49 +114,115 @@ namespace RentOfEquipment.Windows
 
         private void lvEquipment_KeyDown(object sender, KeyEventArgs e)
         {
-            if (lvEquipment.SelectedItem is EF.Client)
+
+            if (e.Key == Key.Delete) 
             {
-                try
-                {
-                    var resClick = MessageBox.Show("Удалить выбранного клиента?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                    if (resClick == MessageBoxResult.No)
-                    {
-                        return;
-                    }
-
-
-                    var selectedClient = lvEquipment.SelectedItem as EF.Client;
-                    selectedClient.isDeleted = true;
-                    AppData.Context.SaveChanges();
-                    Filter();
-                    MessageBox.Show("Клиент успешно удалён!", "Информирование", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"{ex}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                DeleteClient();
             }
-            else
-            {
-                MessageBox.Show("Выберите запись!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+
 
             if (e.Key == Key.Enter)
+            {
+                if (!clientChoise)
+                {
+                    EditClient();
+                }
+                else
+                {
+                    ChoiseClient();
+                }
+            }
+
+            if (e.Key == Key.Back) 
             {
                 EditClient();
             }
 
         }
 
+        private void DeleteClient() 
+        {
+            if (AuthUser.Role.IdRole == 1)
+            {
+                if (lvEquipment.SelectedItem is EF.Client)
+                {
+                    try
+                    {
+                        var resClick = MessageBox.Show("Удалить выбранного клиента?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                        if (resClick == MessageBoxResult.No)
+                        {
+                            return;
+                        }
+
+
+                        var selectedClient = lvEquipment.SelectedItem as EF.Client;
+                        selectedClient.isDeleted = true;
+                        AppData.Context.SaveChanges();
+                        Filter();
+                        MessageBox.Show("Клиент успешно удалён!", "Информирование", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Выберите запись!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else 
+            {
+                MessageBox.Show("Отказано в доступе!\nДля совершения действия нужны права Администратора!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private void lvEquipment_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            EditClient();
+            if (!clientChoise)
+            {
+                EditClient();
+            }
+            else 
+            {
+                ChoiseClient();
+            }
+        }
+
+        private void ChoiseClient()
+        {
+            if (lvEquipment.SelectedItem is EF.Client) 
+            {
+                var selectedClient = lvEquipment.SelectedItem as EF.Client;
+                if (selectedClient != null)
+                {
+                    AppData.ChoisenClient = selectedClient;
+                    this.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите запись!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void EditClient() 
-        { 
-            
+        {
+            if (lvEquipment.SelectedItem is EF.Client)
+            {
+                var selectedClient = lvEquipment.SelectedItem as EF.Client;
+                if (selectedClient != null) 
+                { 
+                    AddEditClientWindow addEditClientWindow = new AddEditClientWindow(selectedClient);
+                    addEditClientWindow.ShowDialog();
+                    Filter();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите запись!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
     }

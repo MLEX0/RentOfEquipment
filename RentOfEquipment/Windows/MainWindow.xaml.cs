@@ -32,17 +32,42 @@ namespace RentOfEquipment
         private void btnMenuEmployee_Click(object sender, RoutedEventArgs e)
         {
             EmployeeListWindow employeeListWindow = new EmployeeListWindow(AuthUser);
-            this.Hide();
-            employeeListWindow.Show();
-            this.Close();
+            this.Opacity = 0.5;
+            employeeListWindow.ShowDialog();
+            this.Opacity = 1.0;
         }
 
         private void btnMenuClient_Click(object sender, RoutedEventArgs e)
         {
             ClientListWindow clientListWindow = new ClientListWindow(AuthUser);
-            this.Hide();
-            clientListWindow.Show();
-            this.Close();
+            this.Opacity = 0.5;
+            clientListWindow.ShowDialog();
+            this.Opacity = 1.0;
+        }
+
+        private void btnMenuIssueOfEquipment_Click(object sender, RoutedEventArgs e)
+        {
+            IssuanceEquipmentWindow issuanceEquipmentWindow = new IssuanceEquipmentWindow(AuthUser);
+            this.Opacity = 0.5;
+            issuanceEquipmentWindow.ShowDialog();
+            this.Opacity = 1.0;
+        }
+
+        private void btnEquipment_Click(object sender, RoutedEventArgs e)
+        {
+            EquipmentListWindow equipmentListWindow = new EquipmentListWindow(AuthUser);
+            this.Opacity = 0.5;
+            equipmentListWindow.ShowDialog();
+            this.Opacity = 1.0;
+        }
+
+        private void btnProductEquipment_Click(object sender, RoutedEventArgs e)
+        {
+            IssuanceEquipmentListWindow issuanceEquipmentListWindow = new IssuanceEquipmentListWindow(AuthUser);
+            this.Opacity = 0.5;
+            issuanceEquipmentListWindow.ShowDialog();
+            this.Opacity = 1.0;
+
         }
     }
 }

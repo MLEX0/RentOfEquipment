@@ -1,16 +1,17 @@
-﻿<Window x:Class="RentOfEquipment.Windows.ClientListWindow"
+﻿<Window x:Class="RentOfEquipment.Windows.IssuanceEquipmentListWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RentOfEquipment.Windows"
         mc:Ignorable="d"
-        Title="Список клиентов" 
+        Title="Список оборудование в аренде" 
         Height="650" 
         Width="1200"
         MinHeight="550" 
         MinWidth="1000"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+       >
 
     <Grid>
         <Grid.RowDefinitions>
@@ -26,7 +27,7 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock
-            Text="Список клиентов"
+            Text="Список выданного оборудования"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontSize="20"
@@ -62,6 +63,17 @@
                       SelectionChanged="cmbSort_SelectionChanged"
                      />
 
+            <CheckBox x:Name="cbxReturned"
+                      VerticalAlignment="Center"
+                      Content="Показать записи о возвращённом оборудовании"
+                      Grid.Column="2" 
+                      Margin="20,0,0,0" 
+                      VerticalContentAlignment="Center" 
+                      FontSize="18"
+                      Checked="cbxReturned_Checked"
+                      Unchecked="cbxReturned_Unchecked"
+                      />
+
         </WrapPanel>
 
         <ListView
@@ -71,28 +83,27 @@
         KeyDown="lvEquipment_KeyDown"
         MouseDoubleClick="lvEquipment_MouseDoubleClick"
         Style="{DynamicResource MaterialDesignListView}"
-            d:ItemsSource="{d:SampleData ItemCount=5}"
         >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Код" Width="90" DisplayMemberBinding="{Binding IdClient}"/>
-                    <GridViewColumn Header="Фамилия" Width="150" DisplayMemberBinding="{Binding LastName}"/>
-                    <GridViewColumn Header="Имя" Width="150" DisplayMemberBinding="{Binding FirstName}"/>
-                    <GridViewColumn Header="Отчесвто" Width="150" DisplayMemberBinding="{Binding Patronymic}"/>
-                    <GridViewColumn Header="Пол" Width="100" DisplayMemberBinding="{Binding Gender.GenderName}"/>
-                    <GridViewColumn Header="Дата рождения" Width="160" DisplayMemberBinding="{Binding Birthday}"/>
-                    <GridViewColumn Header="Email" Width="150" DisplayMemberBinding="{Binding Email}"/>
-                    <GridViewColumn Header="Телефон" Width="150" DisplayMemberBinding="{Binding Phone}"/>
-                    <GridViewColumn Header="Серия паспорта" Width="90" DisplayMemberBinding="{Binding Passport.Serial}"/>
-                    <GridViewColumn Header="Номер паспорта" Width="90" DisplayMemberBinding="{Binding Passport.Number}"/>
-                    
+                    <GridViewColumn Header="Код" Width="90" DisplayMemberBinding="{Binding IdClientProduct}"/>
+                    <GridViewColumn Header="Статус" Width="100" DisplayMemberBinding="{Binding TextIsReturned}"/>
+                    <GridViewColumn Header="Фио Клиента" Width="150" DisplayMemberBinding="{Binding Client.FIO}"/>
+                    <GridViewColumn Header="Серия паспорта" Width="150" DisplayMemberBinding="{Binding Client.Passport.Serial}"/>
+                    <GridViewColumn Header="Номер паспорта" Width="150" DisplayMemberBinding="{Binding Client.Passport.Number}"/>
+                    <GridViewColumn Header="Код оборудования" Width="100" DisplayMemberBinding="{Binding Product.IdProduct}"/>
+                    <GridViewColumn Header="Наименование" Width="160" DisplayMemberBinding="{Binding Product.Name}"/>
+                    <GridViewColumn Header="Код сотрудника" Width="100" DisplayMemberBinding="{Binding Employee.IdEmployee}"/>
+                    <GridViewColumn Header="Фио сотрудника" Width="150" DisplayMemberBinding="{Binding Employee.FIO}"/>
+                    <GridViewColumn Header="Дата выдачи" Width="130" DisplayMemberBinding="{Binding RentStartDate}"/>
+                    <GridViewColumn Header="Дата сдачи" Width="130" DisplayMemberBinding="{Binding RentEndDate}"/>
+                    <GridViewColumn Header="Итоговая стоимость" Width="100" DisplayMemberBinding="{Binding TotalCost}"/>
                 </GridView>
             </ListView.View>
         </ListView>
 
 
-        <Button FontSize="20"
-                Style="{DynamicResource MaterialDesignFloatingActionButton}"
+        <Button 
                 x:Name="btnAddClient"
                 Grid.Row="3"
                 Grid.Column="2"
@@ -101,7 +112,9 @@
                 Content="+"
                 HorizontalAlignment="Right"
                 Margin="40 0"
-                Click="btnAddClient_Click"/>
+                Click="btnAddClient_Click"
+                FontSize="20"
+                Style="{DynamicResource MaterialDesignFloatingActionButton}"/>
 
         <TextBlock x:Name="tbCountLines"
                    Grid.Row="3"

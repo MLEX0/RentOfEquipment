@@ -86,7 +86,7 @@ namespace RentOfEquipment.Windows
             }
 
             lvEquipment.ItemsSource = listEmployee;
-            tbCountLines.Text = $"Количество строк: {listEmployee.Count}";
+            tbCountLines.Text = $"Количество сотрудников: {listEmployee.Count}";
         }
 
         private void btnAddEmployee_Click(object sender, RoutedEventArgs e)

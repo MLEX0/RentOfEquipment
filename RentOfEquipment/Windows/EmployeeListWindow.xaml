@@ -5,9 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RentOfEquipment.Windows"
         mc:Ignorable="d"
-        Title="EmployeeListWindow" 
+        Title="Список сотрудников" 
         Height="650" 
-        Width="1200">
+        Width="1200"
+        MinHeight="550" 
+        MinWidth="1000"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -117,30 +120,191 @@
                      />
 
         </WrapPanel>
-        
+
         <ListView
         Grid.Row="2"
         x:Name="lvEquipment"
         Grid.ColumnSpan="3"
         KeyDown="lvEquipment_KeyDown"
-        MouseDoubleClick="lvEquipment_MouseDoubleClick"
+        MouseDoubleClick="lvEquipment_MouseDoubleClick" 
+        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        d:ItemsSource="{d:SampleData ItemCount=5}"
         >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Код" Width="70" DisplayMemberBinding="{Binding IdEmployee}"/>
-                    <GridViewColumn Header="Фамилия" Width="150" DisplayMemberBinding="{Binding LastName}"/>
-                    <GridViewColumn Header="Имя" Width="150" DisplayMemberBinding="{Binding FirstName}"/>
-                    <GridViewColumn Header="Отчесвто" Width="150" DisplayMemberBinding="{Binding Patronymic}"/>
-                    <GridViewColumn Header="Пол" Width="100" DisplayMemberBinding="{Binding Gender.GenderName}"/>
-                    <GridViewColumn Header="Телефон" Width="150" DisplayMemberBinding="{Binding Phone}"/>
-                    <GridViewColumn Header="Логин" Width="150" DisplayMemberBinding="{Binding Login}"/>
-                    <GridViewColumn Header="Должность" Width="150" DisplayMemberBinding="{Binding Role.RoleName}"/>
-                </GridView>
-            </ListView.View>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    
+                    
+                    <Grid Width="350"
+                          Height="380">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <Border Background="#393E40"
+                                CornerRadius="20"
+                                Grid.ColumnSpan="2"
+                                Grid.RowSpan="12"/>
+                        
+                        <Border 
+                                Grid.RowSpan="6"
+                                BorderThickness="1"
+                                BorderBrush="{x:Null}"
+                                Margin="10 5 5 5">
+
+                            <Image>
+                                <Image.Source>
+                                    <Binding Path="EmployeePhoto">
+                                        <Binding.TargetNullValue>
+                                            <ImageSource>/Res/woman_man.png</ImageSource>
+                                        </Binding.TargetNullValue>
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
+                        </Border>
+
+                        <TextBlock x:Name="tbLName"
+                                   Grid.Column="1"
+                                   Grid.Row="1"
+                                   Margin="3"
+                                   TextAlignment="Center"
+                                   FontSize="18"
+                                   FontFamily="Inter"
+                                   FontWeight="Regular"
+                                   TextWrapping="Wrap" 
+                                   Foreground="#FFFFFF" 
+                                   Text="{Binding TextLastName}"
+                                   />
+
+                        <TextBlock x:Name="tbName"
+                                   Grid.Column="1"
+                                   Grid.Row="2"
+                                   Margin="3"
+                                   TextAlignment="Center"
+                                   FontSize="18"
+                                   FontFamily="Inter"
+                                   FontWeight="Regular"
+                                   TextWrapping="Wrap" 
+                                   Foreground="#FFFFFF" 
+                                   Text="{Binding TextFirstName}"/>
+                        
+                        <TextBlock x:Name="tbPatronimic"
+                                   Grid.Column="1"
+                                   Grid.Row="3"
+                                   Margin="3"
+                                   TextAlignment="Center"
+                                   FontSize="18"
+                                   FontFamily="Inter"
+                                   FontWeight="Regular"
+                                   TextWrapping="Wrap" 
+                                   Foreground="#FFFFFF" 
+                                   Text="{Binding TextPatronymic}"/>
+                        
+                        
+
+                        <TextBlock x:Name="tbGender"
+                                   Grid.Column="1"
+                                   Grid.Row="4"
+                                   Margin="3"
+                                   TextAlignment="Center"
+                                   FontSize="16"
+                                   FontFamily="Inter"
+                                   FontWeight="Regular"
+                                   TextWrapping="Wrap" 
+                                   Foreground="#FFFFFF" 
+                                   Text="{Binding TextGender}"/>
+
+
+                        <TextBlock x:Name="tbId"
+                                   Grid.ColumnSpan="2"
+                                   TextAlignment="Left"
+                                   Margin="20, 3, 3, 3"
+                                   Grid.Row="6"
+                                   FontSize="16"
+                                   FontFamily="Inter"
+                                   FontWeight="Regular"
+                                   TextWrapping="Wrap" 
+                                   Foreground="#FFFFFF" 
+                                   Text="{Binding TextId}"/>
+
+                        <TextBlock x:Name="tLogin"
+                                   Grid.ColumnSpan="2"
+                                   TextAlignment="Left"
+                                   Margin="20, 3, 3, 3"
+                                   Grid.Row="7"
+                                   FontSize="16"
+                                   FontFamily="Inter"
+                                   FontWeight="Regular"
+                                   TextWrapping="Wrap" 
+                                   Foreground="#FFFFFF" 
+                                   Text="{Binding TextLogin}"/>
+
+                        <TextBlock x:Name="tbRole"
+                                   Grid.ColumnSpan="2"
+                                   TextAlignment="Left"
+                                   Margin="20, 3, 3, 3"
+                                   Grid.Row="8"
+                                   FontSize="16"
+                                   FontFamily="Inter"
+                                   FontWeight="Regular"
+                                   TextWrapping="Wrap" 
+                                   Foreground="#FFFFFF" 
+                                   Text="{Binding TextRole}"/>
+
+                        <TextBlock x:Name="tbEmail"
+                                   Grid.ColumnSpan="2"
+                                   TextAlignment="Left"
+                                   Margin="20, 3, 3, 3"
+                                   Grid.Row="9"
+                                   FontSize="16"
+                                   FontFamily="Inter"
+                                   FontWeight="Regular"
+                                   TextWrapping="Wrap" 
+                                   Foreground="#FFFFFF" 
+                                   Text="{Binding TextEmail}"/>
+                        
+                        <TextBlock x:Name="tbPhone"
+                                   Grid.ColumnSpan="2"
+                                   TextAlignment="Left"
+                                   Margin="20, 3, 3, 3"
+                                   Grid.Row="10"
+                                   FontSize="16"
+                                   FontFamily="Inter"
+                                   FontWeight="Regular"
+                                   TextWrapping="Wrap" 
+                                   Foreground="#FFFFFF" 
+                                   Text="{Binding TextPhone}"/>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
 
-        <Button Style="{DynamicResource ButtonStyle1}" x:Name="btnAddEmployee"
+        <Button 
+                x:Name="btnAddEmployee"
                 Grid.Row="3"
                 Grid.Column="2"
                 Width="40"
@@ -148,6 +312,8 @@
                 Content="+"
                 HorizontalAlignment="Right"
                 Margin="40 0"
+                FontSize="20"
+                Style="{DynamicResource MaterialDesignFloatingActionButton}"
                 Click="btnAddEmployee_Click"/>
 
         <TextBlock x:Name="tbCountLines"

@@ -6,22 +6,307 @@
         xmlns:local="clr-namespace:RentOfEquipment.Windows"
         mc:Ignorable="d"
         Title="Список оборудования" 
-        Height="450" 
-        Width="800"
+        Height="650" 
+        Width="1200"
+        MinHeight="550" 
+        MinWidth="1000"
         WindowStartupLocation="CenterScreen">
-    
+
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="20" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        <TextBlock x:Name="txtEquipmentList"
-                   Text="Список оборудования" 
-                   Grid.Row="0" 
-                   Grid.Column="0"
-                   Grid.ColumnSpan="4"
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock
+            Text="Список оборудования"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="20"
+            Grid.ColumnSpan="3"
+            />
+
+        <WrapPanel Grid.Row="1"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   FontSize="25"
-                   FontFamily="Franklin Gothic Demi"
-                   Margin="0 0 0 0"
-                   
+                   Grid.ColumnSpan="3"
+                   >
+
+            <TextBlock Text="Поиск:"
+                       FontSize="18"
+                       Margin="10 0"
+                       />
+
+            <TextBox   x:Name="txtSearch"
+                       Width="200"
+                       Margin="10 0"
+                       FontSize="15"
+                       VerticalContentAlignment="Center"
+                       TextChanged="txtSearch_TextChanged"
+                       />
+
+            <TextBlock Text="Сортировка:"
+                       FontSize="18"
+                       Margin="10 0"
+                       />
+
+            <ComboBox x:Name="cmbSort"
+                      Width="200"
+                      Margin="10 0"
+                      SelectionChanged="cmbSort_SelectionChanged"
+                     />
+
+        </WrapPanel>
+
+        <ListView
+        Grid.Row="2"
+        x:Name="lvEquipment"
+        Grid.ColumnSpan="3"
+        KeyDown="lvEquipment_KeyDown"
+        MouseDoubleClick="lvEquipment_MouseDoubleClick"
+        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        Style="{DynamicResource MaterialDesignListView}" 
+        d:ItemsSource="{d:SampleData ItemCount=5}"
+        >
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+
+
+                    <Grid Width="350"
+                          Height="380">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Background="#393E40"
+                                CornerRadius="20"
+                                Grid.ColumnSpan="2"
+                                Grid.RowSpan="12"/>
+
+                        <Border 
+                                Grid.RowSpan="6"
+                                BorderThickness="1"
+                                BorderBrush="{x:Null}"
+                                Margin="10 5 5 5">
+
+                            <Image>
+                                <Image.Source>
+                                    <Binding Path="ProductImage">
+                                        <Binding.TargetNullValue>
+                                            <ImageSource>/Res/nullImage.jpg</ImageSource>
+                                        </Binding.TargetNullValue>
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
+                        </Border>
+
+                        <TextBlock x:Name="tbLName"
+                                   Grid.Column="1"
+                                   Grid.Row="0"
+                                   Grid.RowSpan="3"
+                                   Margin="3 10 3 3"
+                                   TextAlignment="Center"
+                                   FontSize="18"
+                                   FontFamily="Inter"
+                                   FontWeight="Regular"
+                                   TextWrapping="Wrap" 
+                                   Foreground="#FFFFFF" 
+                                   Text="{Binding TextName}"
+                                   />
+
+
+
+                        <TextBlock x:Name="tbDescription"
+                                   Grid.Column="1"
+                                   Grid.Row="3"
+                                   Grid.RowSpan="3"
+                                   Margin="3"
+                                   TextAlignment="Center"
+                                   FontSize="16"
+                                   FontFamily="Inter"
+                                   FontWeight="Regular"
+                                   TextWrapping="Wrap" 
+                                   Foreground="#FFFFFF" 
+                                   Text="{Binding TextDescription}"/>
+
+
+                        <TextBlock x:Name="tbId"
+                                   Grid.ColumnSpan="2"
+                                   TextAlignment="Left"
+                                   Margin="20, 3, 3, 3"
+                                   Grid.Row="6"
+                                   FontSize="16"
+                                   FontFamily="Inter"
+                                   FontWeight="Regular"
+                                   TextWrapping="Wrap" 
+                                   Foreground="#FFFFFF" 
+                                   Text="{Binding TextIdProduct}"/>
+
+                        <TextBlock x:Name="tbCategory"
+                                   Grid.ColumnSpan="2"
+                                   TextAlignment="Left"
+                                   Grid.RowSpan="2"
+                                   Margin="20, 3, 3, 3"
+                                   Grid.Row="7"
+                                   FontSize="16"
+                                   FontFamily="Inter"
+                                   FontWeight="Regular"
+                                   TextWrapping="Wrap" 
+                                   Foreground="#FFFFFF" 
+                                   Text="{Binding TextCategory}"/>
+
+                        <TextBlock x:Name="tbQty"
+                                   Grid.ColumnSpan="2"
+                                   TextAlignment="Left"
+                                   Margin="20, 3, 3, 3"
+                                   Grid.Row="9"
+                                   FontSize="16"
+                                   FontFamily="Inter"
+                                   FontWeight="Regular"
+                                   TextWrapping="Wrap" 
+                                   Foreground="#FFFFFF" 
+                                   Text="{Binding TextQty}"/>
+
+                        <TextBlock x:Name="tbCost"
+                                   Grid.ColumnSpan="2"
+                                   TextAlignment="Left"
+                                   Margin="20, 3, 3, 3"
+                                   Grid.Row="10"
+                                   FontSize="16"
+                                   FontFamily="Inter"
+                                   FontWeight="Regular"
+                                   TextWrapping="Wrap" 
+                                   Foreground="#FFFFFF" 
+                                   Text="{Binding TextCost}"/>
+
+                        <TextBlock x:Name="tbWarranty"
+                                   Grid.ColumnSpan="2"
+                                   TextAlignment="Left"
+                                   Margin="20, 3, 3, 3"
+                                   Grid.Row="11"
+                                   FontSize="16"
+                                   FontFamily="Inter"
+                                   FontWeight="Regular"
+                                   TextWrapping="Wrap" 
+                                   Foreground="#FFFFFF" 
+                                   Text="{Binding TextWarranty}"/>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+        
+        
+        <Button 
+                x:Name="btnAddEquipment"
+                Grid.Row="3"
+                Grid.Column="2"
+                Width="40"
+                Height="40"
+                Content="+"
+                HorizontalAlignment="Right"
+                Margin="40 0"
+                FontSize="20"
+                Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                Click="btnAddEquipment_Click"/>
+
+        <TextBlock x:Name="tbCountLines"
+                   Grid.Row="3"
+                   Margin="20 10"
+                   TextWrapping="Wrap"
+                   Text="Количество строк: 0"
+                   FontSize="16"
                    />
+
     </Grid>
 </Window>

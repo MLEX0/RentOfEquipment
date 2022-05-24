@@ -14,5 +14,17 @@ namespace RentOfEquipment.EF
         public string OFI { get => $"{Patronymic} {LastName} {FirstName}"; }
         public string FOI { get => $"{LastName} {Patronymic} {FirstName}"; }
         public string IOF { get => $"{FirstName} {Patronymic} {LastName}"; }
+
+
+        public string TextLastName { get => $"Ф: {LastName}"; }
+        public string TextFirstName { get => $"И: {FirstName}"; }
+        public string TextPatronymic { get => $"О: {Patronymic}"; }
+        public string TextGender { get => $"Пол: {Gender.GenderName}"; }
+        public string TextId { get => $"Номер сотрудника: {IdEmployee}"; }
+        public string TextLogin { get => $"Login: {Login}"; }
+        public string TextRole { get => $"Должность: {Role.RoleName}"; }
+        public string TextEmail { get => $"Email: {Email}"; }
+        public string TextPhone { get => $"Телефон: {Phone}"; }
+
     }
 }

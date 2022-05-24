@@ -25,9 +25,11 @@ namespace RentOfEquipment.EF
         public string Description { get; set; }
         public byte[] ProductImage { get; set; }
         public int IdCategory { get; set; }
+        public int Qty { get; set; }
         public System.DateTime Warranty { get; set; }
         public bool IsActual { get; set; }
         public bool isDeleted { get; set; }
+        public decimal Cost { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

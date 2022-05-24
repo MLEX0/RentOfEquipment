@@ -38,6 +38,8 @@
           <Property Name="IdEmployee" Type="int" Nullable="false" />
           <Property Name="RentStartDate" Type="datetime" Nullable="false" />
           <Property Name="RentEndDate" Type="datetime" />
+          <Property Name="IsReturned" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -54,6 +56,7 @@
           <Property Name="IdRole" Type="int" Nullable="false" />
           <Property Name="IdGender" Type="int" Nullable="false" />
           <Property Name="isDeleted" Type="bit" Nullable="false" />
+          <Property Name="EmployeePhoto" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
@@ -79,9 +82,11 @@
           <Property Name="Description" Type="nvarchar" MaxLength="300" />
           <Property Name="ProductImage" Type="varbinary(max)" />
           <Property Name="IdCategory" Type="int" Nullable="false" />
+          <Property Name="Qty" Type="int" Nullable="false" />
           <Property Name="Warranty" Type="date" Nullable="false" />
           <Property Name="IsActual" Type="bit" Nullable="false" />
           <Property Name="isDeleted" Type="bit" Nullable="false" />
+          <Property Name="Cost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -395,6 +400,8 @@
           <Property Name="IdEmployee" Type="Int32" Nullable="false" />
           <Property Name="RentStartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RentEndDate" Type="DateTime" Precision="3" />
+          <Property Name="IsReturned" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="RentOfEquipmentModel.FK_ClientProduct_Client" FromRole="ClientProduct" ToRole="Client" />
           <NavigationProperty Name="Employee" Relationship="RentOfEquipmentModel.FK_ClientProduct_Employee" FromRole="ClientProduct" ToRole="Employee" />
           <NavigationProperty Name="Product" Relationship="RentOfEquipmentModel.FK_ClientProduct_Product" FromRole="ClientProduct" ToRole="Product" />
@@ -414,6 +421,7 @@
           <Property Name="IdRole" Type="Int32" Nullable="false" />
           <Property Name="IdGender" Type="Int32" Nullable="false" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="EmployeePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="ClientProduct" Relationship="RentOfEquipmentModel.FK_ClientProduct_Employee" FromRole="Employee" ToRole="ClientProduct" />
           <NavigationProperty Name="Gender" Relationship="RentOfEquipmentModel.FK_Employee_Gender" FromRole="Employee" ToRole="Gender" />
           <NavigationProperty Name="Role" Relationship="RentOfEquipmentModel.FK_Employee_Role" FromRole="Employee" ToRole="Role" />
@@ -445,9 +453,11 @@
           <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="ProductImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="IdCategory" Type="Int32" Nullable="false" />
+          <Property Name="Qty" Type="Int32" Nullable="false" />
           <Property Name="Warranty" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IsActual" Type="Boolean" Nullable="false" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <NavigationProperty Name="Category" Relationship="RentOfEquipmentModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="ClientProduct" Relationship="RentOfEquipmentModel.FK_ClientProduct_Product" FromRole="Product" ToRole="ClientProduct" />
         </EntityType>
@@ -623,6 +633,8 @@
           <EntitySetMapping Name="ClientProduct">
             <EntityTypeMapping TypeName="RentOfEquipmentModel.ClientProduct">
               <MappingFragment StoreEntitySet="ClientProduct">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsReturned" ColumnName="IsReturned" />
                 <ScalarProperty Name="RentEndDate" ColumnName="RentEndDate" />
                 <ScalarProperty Name="RentStartDate" ColumnName="RentStartDate" />
                 <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
@@ -635,6 +647,7 @@
           <EntitySetMapping Name="Employee">
             <EntityTypeMapping TypeName="RentOfEquipmentModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeePhoto" ColumnName="EmployeePhoto" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="IdGender" ColumnName="IdGender" />
                 <ScalarProperty Name="IdRole" ColumnName="IdRole" />
@@ -669,9 +682,11 @@
           <EntitySetMapping Name="Product">
             <EntityTypeMapping TypeName="RentOfEquipmentModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="IsActual" ColumnName="IsActual" />
                 <ScalarProperty Name="Warranty" ColumnName="Warranty" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
                 <ScalarProperty Name="IdCategory" ColumnName="IdCategory" />
                 <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

@@ -39,32 +39,38 @@ namespace RentOfEquipment.Windows
 
             if (authUser != null)
             {
-                MainWindow mainWindow = new MainWindow(authUser);
-                mainWindow.Show();
-                this.Close();
+                switch (authUser.IdRole) 
+                {
+                    case 1:
+                        {
+                            MainWindow mainWindow = new MainWindow(authUser);
+                            mainWindow.Show();
+                            this.Close();
+                            break;
+                        }
+
+                    case 2:
+                        {
+                            IssuanceEquipmentListWindow issuanceEquipmentListWindow = new IssuanceEquipmentListWindow(authUser);
+                            issuanceEquipmentListWindow.Show();
+                            this.Close();
+                            break;
+                        }
+
+                    default:
+                        {
+                            IssuanceEquipmentListWindow issuanceEquipmentListWindow = new IssuanceEquipmentListWindow(authUser);
+                            issuanceEquipmentListWindow.Show();
+                            this.Close();
+                            break;
+                        }
+                }
             }
             else 
             {
                 MessageBox.Show("Неправильный логин, или пароль!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-        private void txtLogin_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (txtLogin.Text.Equals("Введите логин")) {
-                txtLogin.Text = String.Empty;
-            }
-        }
-
-        private void txtLogin_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (txtLogin.Text.Equals(String.Empty)) {
-
-                txtLogin.Text = "Введите логин";
-
-            }
-        }
-
 
     }
 }

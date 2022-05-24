@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:RentOfEquipment.Windows"
         mc:Ignorable="d"
-        Title="Окно авторизации" 
+        Title="Авторизация" 
         Height="450"
         Width="300"
         WindowStartupLocation="CenterScreen"
@@ -66,9 +67,7 @@
                  VerticalContentAlignment="Center"
                  FontFamily="Corbel"
                  Margin="10 0 0 0"
-                 GotFocus="txtLogin_GotFocus"
-                 LostFocus="txtLogin_LostFocus"
-                 Text="Введите логин"
+                 materialDesign:HintAssist.Hint="Введите логин"
                  />
 
             <TextBlock x:Name="PasswordAuthorization"
@@ -91,9 +90,10 @@
                  VerticalContentAlignment="Center"
                  FontFamily="Tempus Sans ITC"
                  Margin="10 0 0 0"
+                 materialDesign:HintAssist.Hint="Введите пароль"
                  />
 
-            <CheckBox x:Name="cbxRemind"
+            <!--<CheckBox x:Name="cbxRemind"
                   Grid.Row="4"
                   Grid.Column="1"
                   Grid.ColumnSpan="1"
@@ -111,7 +111,7 @@
                    VerticalAlignment="Center" 
                    HorizontalAlignment="Right" 
                    Width="120"
-            />
+            />-->
 
 
             <Button x:Name="btnLogin"
