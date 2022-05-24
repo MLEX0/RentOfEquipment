@@ -26,7 +26,7 @@ namespace RentOfEquipment
         {
             InitializeComponent();
             AuthUser = authUser;
-
+            txtAuthUser.Text = $"Вы вошли как: {AuthUser.IdEmployee} {AuthUser.FIO}";
         }
 
         private void btnMenuEmployee_Click(object sender, RoutedEventArgs e)

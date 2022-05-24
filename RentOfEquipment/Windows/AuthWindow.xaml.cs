@@ -35,7 +35,8 @@ namespace RentOfEquipment.Windows
         {
             var authUser = AppData.Context.Employee.ToList()
                 .Where(i => i.Login.Equals(txtLogin.Text, StringComparison.CurrentCulture) 
-                && i.Password.Equals(pswPassword.Password, StringComparison.CurrentCulture)).FirstOrDefault();
+                && i.Password.Equals(pswPassword.Password, StringComparison.CurrentCulture)
+                && i.isDeleted != true).FirstOrDefault();
 
             if (authUser != null)
             {

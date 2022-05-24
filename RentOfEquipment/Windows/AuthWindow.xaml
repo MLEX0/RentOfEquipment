@@ -80,7 +80,7 @@
                    Margin="0 0 70 0"
                    FontSize="17"/>
 
-            <PasswordBox x:Name="pswPassword" 
+        <PasswordBox x:Name="pswPassword" 
                      Grid.Row="3" 
                  Grid.Column="1"
                  Grid.ColumnSpan="3"
@@ -93,28 +93,8 @@
                  materialDesign:HintAssist.Hint="Введите пароль"
                  />
 
-            <!--<CheckBox x:Name="cbxRemind"
-                  Grid.Row="4"
-                  Grid.Column="1"
-                  Grid.ColumnSpan="1"
-                  VerticalContentAlignment="Center"
-                  HorizontalAlignment="Left"
-                  Margin="0 0 0 0"   
-            />
 
-            <TextBlock x:Name="SaveMeAutharization"
-                   Text="Запомнить меня"
-                   Grid.Row="4"
-                   Grid.Column="1"
-                   Grid.ColumnSpan="3"
-                   Margin="0 0 60 0"
-                   VerticalAlignment="Center" 
-                   HorizontalAlignment="Right" 
-                   Width="120"
-            />-->
-
-
-            <Button x:Name="btnLogin"
+        <Button x:Name="btnLogin"
                 Grid.Column="1"
                 Grid.Row="5"
                 Grid.RowSpan="2"

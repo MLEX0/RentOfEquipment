@@ -40,6 +40,8 @@ namespace RentOfEquipment.Windows
            
             cmbSort.ItemsSource = listsort;
             cmbSort.SelectedIndex = 0;
+
+            txtAuthUser.Text = $"Вы вошли как: {AuthUser.IdEmployee} {AuthUser.FIO}";
             Filter();
         }
 

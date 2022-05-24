@@ -32,6 +32,17 @@
             VerticalAlignment="Center"
             FontSize="20"
             Grid.ColumnSpan="3"
+            FontWeight="Bold"
+            />
+
+        <TextBlock
+            x:Name="txtAuthUser"
+            Text=""
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            FontSize="14"
+            TextWrapping="Wrap"
+            Grid.ColumnSpan="3"
             />
 
         <WrapPanel Grid.Row="1"
